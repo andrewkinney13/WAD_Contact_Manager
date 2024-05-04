@@ -1,0 +1,52 @@
+extends layout.pug
+
+block content
+
+    div.container
+        h1 Sign up 
+
+        p Please select a username and password. There are no password rules...
+
+        form.typingPage(action='/signup', method='post')
+
+            div.colorBox
+                section.smallContainer
+                    p
+                        label(for='first_name') First Name
+                        br
+                        input(type='text', name='first_name' required)
+
+                section.smallContainer
+                    p
+                        label(for='last_name') Last Name
+                        br
+                        input(type='text', name='last_name' required)
+            
+            br
+            div.colorBox
+                section.smallContainer
+                    p
+                        label(for='username') Username
+                        br
+                        input(type='text', name='username' required)
+                section.smallContainer
+                    p
+                        label(for='password') Password
+                        br
+                        input(type='password', name='password' required)
+                section.smallContainer
+                    p
+                        label(for='password2') Confirm Password
+                        br
+                        input(type='password', name='password2' required)
+                div.horizontalElements.smallContainer
+                    div.left
+                        button(type='submit') Sign up
+                    a.linkButton(href='/') Nevermind
+
+            if message 
+                p #{message}
+        
+        section
+            p Already have an account?  
+                a(href='/login') Sign in here!

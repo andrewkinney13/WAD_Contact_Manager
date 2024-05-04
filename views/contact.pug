@@ -1,0 +1,53 @@
+extends layout.pug
+
+block content
+   
+    div.container
+        div.horizontalElements
+            h1.left Contact Info
+            a.linkButton(href='/') Back to list
+            
+        div.colorBox
+            div.smallContainer
+                div.horizontalElements
+                    h2 #{contact.first_name + " " + contact.last_name}
+                    
+                p 
+                    strong Phone number: 
+                    | #{contact.phone}
+                p
+                    if contact.contact_phone === 1
+                        em May be contacted by phone or text 
+                    else 
+                        em May NOT be contacted by phone or text
+
+                p 
+                    strong Email address: 
+                    | #{contact.email}
+                p
+                    if contact.contact_email === 1
+                        em May be contacted by email
+                    else 
+                        em May NOT be contacted by email
+
+                p 
+                strong Address: 
+                p 
+                    | #{contact.street}
+                    br 
+                    | #{contact.city + ", " + contact.state + " " + contact.zip}
+                    br
+                    | #{contact.country}
+                p
+                    if contact.contact_mail === 1
+                        em May be contacted by mail
+                    else 
+                        em May NOT be contacted by mail
+        br
+        if loggedIn
+            div.horizontalElements
+                div.left
+                    a.linkButton(href=`/${contact.id}/edit`) Edit contact
+                a.linkButton(href=`/${contact.id}/delete`) Delete contact
+            
+        

@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+
+    div.container
+        h1 Delete Contact 
+
+        p Are you sure you want to delete this contact?
+
+        form(action=`/${contact.id}/delete`, method='post')
+
+            div.horizontalElements
+                button.left(type='submit') Yes!
+                a.linkButton(href='/') Nevermind

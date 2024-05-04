@@ -1,0 +1,18 @@
+qdoctype
+html
+    head
+        title P3 Contacts w/ CSS
+        link(rel="stylesheet" type="text/css" href="/css/styles.css")
+
+    body
+        if !hide_login
+            div.layout
+                if user 
+                    span
+                        div.horizontalElements
+                            div.left
+                                p #{user.first_name} #{user.last_name}  
+                            a(href='/logout') Logout
+                else
+                    a(href='/login') Sign in
+        block content

@@ -1,0 +1,31 @@
+extends layout.pug
+
+block content
+
+    br
+    div.container.colorBox.typingPage
+        div.smallContainer
+            h1 Sign-in 
+            form(action='/login', method='post')
+
+                section
+                    label(for="username") Username
+                    br
+                    input(type='text', name='username' required)
+
+                section
+                    label(for="password") Password
+                    br
+                    input(type='password', name='password' required)
+                
+                div.horizontalElements
+                    div.left
+                        button(type='submit') Sign in
+                    div.right
+                        a.linkButton(href='/') Nevermind
+                if message 
+                    p #{message}
+            
+            section
+                p Don't have an account yet? 
+                    a(href='/signup') Sign up here!

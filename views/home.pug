@@ -1,0 +1,48 @@
+extends layout.pug
+
+block content
+
+    div.container
+        div.horizontalElements
+            div.left
+                h1 Contact List 
+            div.right
+                a.linkButton(href='/create') New contact
+
+        div.colorBox
+            table  
+                tbody 
+                    if (contacts)
+                        each contact in contacts
+                            tr 
+                                td
+                                    section
+                                        a(href=`/${contact.id}`)= `${contact.first_name} ${contact.last_name}`
+                                td
+                                    section
+                                        | #{contact.phone}
+                                td
+                                    section
+                                        | #{contact.email}
+                                td
+                                    section
+                                    | #{contact.street}
+                                    br
+                                    | #{contact.city + ", " + contact.state + " " + contact.zip}
+                                    br
+                                    | #{contact.country}
+                                td 
+                                    section
+                                        label
+                                            input(type="checkbox" checked=contact.contact_phone === 1 disabled)
+                                            | Phone
+                                        br
+                                        label
+                                            input(type="checkbox" checked=contact.contact_email === 1 disabled)
+                                            | Email 
+                                        br
+                                        label
+                                            input(type="checkbox" checked=contact.contact_mail === 1 disabled)
+                                            | Mail
+
+
