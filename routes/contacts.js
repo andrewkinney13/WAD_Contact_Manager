@@ -19,6 +19,7 @@ const checkContactExists = async (req, res, next) => {
     }
 
     // Attatch contact to the req
+    console.log(contact);
     req.contact = contact;
 
     // Call next middleware if no error occurred
@@ -38,6 +39,22 @@ const checkLoggedIn = (req, res, next) => {
     next();
 };
 
+// Geocodes an address
+const geocodeAddress = async (contact) => {
+
+    // Find the address
+    const results = await geocoder.geocode(contact.address);
+    if (results.length > 0) {
+        
+        // Add info if it exists
+        contact.address = results[0].formattedAddress,
+        contact.lat = results[0].latitude,
+        contact.lng = results[0].longitude
+        return true;
+    }
+    return false;
+}
+
 // Returns a contact object given req
 const getContact = (req) => {
     return {
@@ -48,9 +65,7 @@ const getContact = (req) => {
         address : req.body.address.trim(),
         contact_phone : req.body.contact_phone !== undefined ? 1 : 0,
         contact_email : req.body.contact_email !== undefined ? 1 : 0,
-        contact_mail : req.body.contact_mail !== undefined ? 1 : 0,
-        lat : req.body.lat !== undefined ? 1 : 0,
-        long : req.body.long !== undefined ? 1 : 0,
+        contact_mail : req.body.contact_mail !== undefined ? 1 : 0
     }
 }
 
@@ -61,17 +76,14 @@ router.get('/create', async (req, res) => {
 });
 
 // User submitted create form
-router.put('/create', async (req, res) => {
+router.post('/create', async (req, res) => {
 
     // Obtain the information from the req
-    console.log(req.body);
     const contact = getContact(req);
 
     // Check address validity
-    const result = await geocoder.geocode(contact.address);
-
-    // Do nothing if invalid address
-    if (result.length == 0) {
+    if (!await geocodeAddress(contact)) {
+        res.render("editCreate", {contact : contact, error : true});
         return;
     }
     
@@ -94,7 +106,7 @@ router.get('/:id', checkContactExists, async (req, res) => {
 router.get('/:id/edit', checkContactExists, checkLoggedIn, async (req, res) => {
 
     // Render the edit page
-    res.render("editCreate", {contact : req.contact})
+    res.render("editCreate", {contact : req.contact, editing : true})
 });
 
 // User made an edit to a contact
@@ -102,6 +114,12 @@ router.post('/:id/edit', checkContactExists, checkLoggedIn, async (req, res) => 
 
     // Obtain the contact
     const contact = await getContact(req);
+
+    // Check the address again
+    if (!await geocodeAddress(contact)) {
+        res.render("editCreate", {contact : req.contact, editing : true, error : true});
+        return;
+    }
 
     // Make the edit
     await req.db.editContact(req.params.id, contact);

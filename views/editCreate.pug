@@ -2,16 +2,14 @@ extends layout.pug
 
 block content
     
-    script(src="/geocoder.js")
-    script(src="/contact.js")
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
 
     div.container
-        h1 #{contact ? 'Edit' : 'Create'} Contact
+        h1 #{editing ? 'Edit' : 'Create'} Contact
 
         div.typingPage
 
-            form(action=`${contact ? '/' + contact.id + '/edit' : '/create'}`, method='post')
+            form(action=`${editing ? '/' + contact.id + '/edit' : '/create'}`, method='post')
 
                 fieldset.colorBox
                     legend Basic Info
@@ -35,8 +33,15 @@ block content
                 fieldset.colorBox
                     legend Address
                     section
-                        label(for='address') Address:
-                        br
+                        div.horizontalElements
+                            label.left(for='address') Address:
+                            if error && !editing
+                                div(style="margin-left: 20px; color:red; font-weight:bold",) 
+                                    p *Error: Geocoder could not find address
+                            if error && editing 
+                                div(style="margin-left: 20px; color:red; font-weight:bold",) 
+                                    p *Error: Geocoder could not find new address
+                        
                         input(type='text', id="address", value=contact ? contact.address : '', name='address' required)
                     
                 fieldset.colorBox
@@ -47,13 +52,13 @@ block content
                     section
                         input(type='checkbox', checked=contact && contact.contact_email === 1, name='contact_email')
                         label(for='contact_email') Contact by email
-                    sectionct
+                    section
                         input(type='checkbox', checked=contact && contact.contact_mail === 1, name='contact_mail')
                         label(for='contact_mail') Contact by mail
 
                 div.horizontalElements.smallContainer
                     div.left
-                        button(type='button', onclick="checkAddress()") #{contact ? 'Save' : 'Add'}
-                        p(id="errorText")
+                        button(type='submit') #{editing ? 'Save' : 'Add'}
+
                     a.linkButton(href='/') Cancel
             

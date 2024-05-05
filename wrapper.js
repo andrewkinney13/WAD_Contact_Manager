@@ -25,7 +25,7 @@ class Wrapper {
             { name: 'contact_email', type: 'INTEGER' },
             { name: 'contact_mail', type: 'INTEGER' },
             { name: 'lat', type: 'INTEGER' },
-            { name: 'long', type: 'INTEGER' }
+            { name: 'lng', type: 'INTEGER' }
         ], 'id');
 
         await this.db.schema('Users', [
@@ -64,7 +64,7 @@ class Wrapper {
             { column: 'contact_email', value: contact.contact_email },
             { column: 'contact_mail', value: contact.contact_mail },
             { column: 'lat', value: contact.lat },
-            { column: 'long', value: contact.long }
+            { column: 'lng', value: contact.lng }
         ])
         return id;
     }
@@ -136,7 +136,7 @@ class Wrapper {
             { column: 'contact_email', value: contact.contact_email },
             { column: 'contact_mail', value: contact.contact_mail },
             { column: 'lat', value: contact.lat },
-            { column: 'long', value: contact.long }],
+            { column: 'lng', value: contact.lng }],
             [{ column: 'id', value: id }]
         )
     }
