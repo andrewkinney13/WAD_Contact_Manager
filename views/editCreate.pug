@@ -2,6 +2,10 @@ extends layout.pug
 
 block content
     
+    script(src="/geocoder.js")
+    script(src="/contact.js")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+
     div.container
         h1 #{contact ? 'Edit' : 'Create'} Contact
 
@@ -31,26 +35,10 @@ block content
                 fieldset.colorBox
                     legend Address
                     section
-                        label(for='street') Street:
+                        label(for='address') Address:
                         br
-                        input(type='text', value=contact ? contact.street : '', name='street' required)
-                    section
-                        label(for='city') City:
-                        br
-                        input(type='text', value=contact ? contact.city : '', name='city' required)
-                    section
-                        label(for='state') State:
-                        br
-                        input(type='text', value=contact ? contact.state : '', name='state' required)
-                    section
-                        label(for='zip') Zip:
-                        br
-                        input(type='text', value=contact ? contact.zip : '', name='zip' required)
-                    section
-                        label(for='country') Country:
-                        br
-                        input(type='text', value=contact ? contact.country : '', name='country' required)
-
+                        input(type='text', id="address", value=contact ? contact.address : '', name='address' required)
+                    
                 fieldset.colorBox
                     legend Contact Preferences
                     section
@@ -65,6 +53,7 @@ block content
 
                 div.horizontalElements.smallContainer
                     div.left
-                        button(type='submit') #{contact ? 'Save' : 'Add'}
+                        button(type='button', onclick="checkAddress()") #{contact ? 'Save' : 'Add'}
+                        p(id="errorText")
                     a.linkButton(href='/') Cancel
             

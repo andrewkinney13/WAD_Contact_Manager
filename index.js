@@ -7,6 +7,7 @@
 // Import express
 const express = require('express');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 // Creates database 
@@ -17,6 +18,8 @@ db.initialize();
 // App will be used to add middleware when requests are made
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(bodyParser.json())
 
 // Add db to the response
 app.use((req, res, next) => {
@@ -53,8 +56,8 @@ app.use('/', require('./routes/accounts'));
 app.use('/', require('./routes/contacts'));
 
 // Allow loading the css file 
-app.use(express.static(path.join(__dirname, 'css')));
-app.use("/:id", express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use("/:id", express.static(path.join(__dirname, 'public')));
 
 // Listen on port 8080
 app.listen(8080, () => {

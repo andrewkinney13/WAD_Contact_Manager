@@ -1,5 +1,10 @@
+// Add express
 const express = require('express');
 const router = express.Router();
+
+// Add geocoder 
+const geo = require('node-geocoder'); 
+const geocoder = geo({ provider: 'openstreetmap' });
 
 // Middleware function to check if contact exists
 const checkContactExists = async (req, res, next) => {
@@ -40,14 +45,12 @@ const getContact = (req) => {
         last_name : req.body.last_name.trim(),
         phone : req.body.phone.trim(),
         email : req.body.email.trim(),
-        street : req.body.street.trim(),
-        city : req.body.city.trim(),
-        state : req.body.state.trim(),
-        zip : req.body.zip.trim(),
-        country : req.body.country.trim(),
+        address : req.body.address.trim(),
         contact_phone : req.body.contact_phone !== undefined ? 1 : 0,
         contact_email : req.body.contact_email !== undefined ? 1 : 0,
-        contact_mail : req.body.contact_mail !== undefined ? 1 : 0
+        contact_mail : req.body.contact_mail !== undefined ? 1 : 0,
+        lat : req.body.lat !== undefined ? 1 : 0,
+        long : req.body.long !== undefined ? 1 : 0,
     }
 }
 
@@ -58,12 +61,21 @@ router.get('/create', async (req, res) => {
 });
 
 // User submitted create form
-router.post('/create', async (req, res) => {
+router.put('/create', async (req, res) => {
 
     // Obtain the information from the req
+    console.log(req.body);
     const contact = getContact(req);
 
-    // Create the contact
+    // Check address validity
+    const result = await geocoder.geocode(contact.address);
+
+    // Do nothing if invalid address
+    if (result.length == 0) {
+        return;
+    }
+    
+    // Create the contact 
     await req.db.createContact(contact);
 
     // Bring to home

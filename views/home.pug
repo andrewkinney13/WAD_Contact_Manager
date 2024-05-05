@@ -26,11 +26,7 @@ block content
                                         | #{contact.email}
                                 td
                                     section
-                                    | #{contact.street}
-                                    br
-                                    | #{contact.city + ", " + contact.state + " " + contact.zip}
-                                    br
-                                    | #{contact.country}
+                                    | #{contact.address}
                                 td 
                                     section
                                         label
@@ -45,4 +41,12 @@ block content
                                             input(type="checkbox" checked=contact.contact_mail === 1 disabled)
                                             | Mail
 
+        br
+        h1 Contact Map
+        .col-lg-8
+            #map-container
+                #map
+
+    script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="")
+    script(src="/map.js")
 

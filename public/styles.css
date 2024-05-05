@@ -141,3 +141,16 @@ legend {
     padding: 5px;
     background-color:azure;
 }
+
+#map-container {
+    position: relative;
+    height: 700px;
+    margin-bottom: 5rem;
+}
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+
+}

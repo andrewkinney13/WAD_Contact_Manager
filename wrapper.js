@@ -20,14 +20,12 @@ class Wrapper {
             { name: 'last_name', type: 'TEXT' },
             { name: 'phone', type: 'TEXT' },
             { name: 'email', type: 'TEXT' },
-            { name: 'street', type: 'TEXT' },
-            { name: 'city', type: 'TEXT' },
-            { name: 'state', type: 'TEXT' },
-            { name: 'zip', type: 'TEXT' },
-            { name: 'country', type: 'TEXT' },
+            { name: 'address', type: 'TEXT' },
             { name: 'contact_phone', type: 'INTEGER' },
             { name: 'contact_email', type: 'INTEGER' },
-            { name: 'contact_mail', type: 'INTEGER' }
+            { name: 'contact_mail', type: 'INTEGER' },
+            { name: 'lat', type: 'INTEGER' },
+            { name: 'long', type: 'INTEGER' }
         ], 'id');
 
         await this.db.schema('Users', [
@@ -61,14 +59,12 @@ class Wrapper {
             { column: 'last_name', value: contact.last_name },
             { column: 'phone', value: contact.phone },
             { column: 'email', value: contact.email },
-            { column: 'street', value: contact.street },
-            { column: 'city', value: contact.city },
-            { column: 'state', value: contact.state },
-            { column: 'zip', value: contact.zip },
-            { column: 'country', value: contact.country },
+            { column: 'address', value: contact.address },
             { column: 'contact_phone', value: contact.contact_phone },
             { column: 'contact_email', value: contact.contact_email },
-            { column: 'contact_mail', value: contact.contact_mail }
+            { column: 'contact_mail', value: contact.contact_mail },
+            { column: 'lat', value: contact.lat },
+            { column: 'long', value: contact.long }
         ])
         return id;
     }
@@ -135,14 +131,12 @@ class Wrapper {
             { column: 'last_name', value: contact.last_name },
             { column: 'phone', value: contact.phone },
             { column: 'email', value: contact.email },
-            { column: 'street', value: contact.street },
-            { column: 'city', value: contact.city },
-            { column: 'state', value: contact.state },
-            { column: 'zip', value: contact.zip },
-            { column: 'country', value: contact.country },
+            { column: 'address', value: contact.address },
             { column: 'contact_phone', value: contact.contact_phone },
             { column: 'contact_email', value: contact.contact_email },
-            { column: 'contact_mail', value: contact.contact_mail }],
+            { column: 'contact_mail', value: contact.contact_mail },
+            { column: 'lat', value: contact.lat },
+            { column: 'long', value: contact.long }],
             [{ column: 'id', value: id }]
         )
     }

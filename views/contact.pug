@@ -33,11 +33,7 @@ block content
                 p 
                 strong Address: 
                 p 
-                    | #{contact.street}
-                    br 
-                    | #{contact.city + ", " + contact.state + " " + contact.zip}
-                    br
-                    | #{contact.country}
+                    | #{contact.address}
                 p
                     if contact.contact_mail === 1
                         em May be contacted by mail
