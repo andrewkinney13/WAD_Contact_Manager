@@ -19,7 +19,6 @@ const checkContactExists = async (req, res, next) => {
     }
 
     // Attatch contact to the req
-    console.log(contact);
     req.contact = contact;
 
     // Call next middleware if no error occurred

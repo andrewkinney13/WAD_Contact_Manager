@@ -10,11 +10,11 @@ block content
                 a.linkButton(href='/create') New contact
 
         div.colorBox
-            table  
+            table(id="contactsTable")  
                 tbody 
                     if (contacts)
                         each contact in contacts
-                            tr 
+                            tr
                                 td
                                     section
                                         a(href=`/${contact.id}`)= `${contact.first_name} ${contact.last_name}`
@@ -26,7 +26,7 @@ block content
                                         | #{contact.email}
                                 td
                                     section
-                                    | #{contact.address}
+                                        | #{contact.address}
                                 td 
                                     section
                                         label
@@ -40,6 +40,9 @@ block content
                                         label
                                             input(type="checkbox" checked=contact.contact_mail === 1 disabled)
                                             | Mail
+                                td(style="display:none;", id="lat") #{contact.lat}
+                                td(style="display:none;", id="lng") #{contact.lng}
+                            
 
         br
         h1 Contact Map
@@ -49,4 +52,6 @@ block content
 
     script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="")
     script(src="/map.js")
+    script.
+        createMarkers()
 
